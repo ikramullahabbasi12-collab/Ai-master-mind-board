@@ -1,0 +1,37 @@
+// Select DOM elements
+const chatBody = document.querySelector('.chat-body');
+const userInput = document.querySelector('.input-box input');
+const sendButton = document.querySelector('.input-box button');
+
+// Function to handle sending messages
+function sendMessage() {
+    const messageText = userInput.value.trim();
+    if (messageText === '') return;
+
+    // Append user message to the chat body
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.classList.add('message', 'user');
+    userMessageDiv.innerHTML = `<div class="message-content">${messageText}</div>`;
+    chatBody.appendChild(userMessageDiv);
+
+    // Clear the input field and auto-scroll to the bottom
+    userInput.value = '';
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Simulate a bot response (Placeholder for future API integration)
+    setTimeout(() => {
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.classList.add('message', 'bot');
+        botMessageDiv.innerHTML = `<div class="message-content">I received your message. Working on further features!</div>`;
+        chatBody.appendChild(botMessageDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+}
+
+// Event listeners for sending messages via button click or Enter key
+sendButton.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
